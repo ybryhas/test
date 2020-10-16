@@ -28,8 +28,8 @@ test_job:
     - branches
   before_script:
     - echo "export CHROME_HEADLESS=false"
-    - echo '& "$env:NUNIT_PATH\tc-next.exe " "$env:UNITTEST_FOLDER\Guru99.dll --run"'
+    - echo '$NUNIT_PATH\tc-next.exe $UNITTEST_FOLDER\Guru99.dll --run'
   script:
-    - '& "$env:NUNIT_PATH\tc-next.exe " "$env:UNITTEST_FOLDER\Guru99.dll --run"'
+    - '$NUNIT_PATH\tc-next.exe $UNITTEST_FOLDER\Guru99.dll --run'
   dependencies:
     - build_job
