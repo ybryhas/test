@@ -30,6 +30,6 @@ test_job:
     - echo "export CHROME_HEADLESS=false"
     - echo '$NUNIT_PATH\tc-next.exe $UNITTEST_FOLDER\Guru99.dll --run'
   script:
-    - '$NUNIT_PATH\tc-next.exe $UNITTEST_FOLDER\Guru99.dll --run'
+    - '"$NUNIT_PATH\tc-next.exe $UNITTEST_FOLDER\Guru99.dll --run"'
   dependencies:
     - build_job
