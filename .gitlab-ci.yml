@@ -29,6 +29,6 @@ test_job:
   before_script:
     - echo "export CHROME_HEADLESS=false"
   script:
-    - '& "$env:NUNIT_PATH\tc-next.exe" "$env:UNITTEST_FOLDER\Guru99.dll --run"'
+    - '& "$env:NUNIT_PATH\tc-next.exe " "$env:UNITTEST_FOLDER\Guru99.dll --run"'
   dependencies:
     - build_job
