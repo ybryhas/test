@@ -1,0 +1,34 @@
+# place project specific paths in variables to make the rest of the script more generic
+variables:
+  NUGET_PATH: 'C:\Tools\Nuget\nuget.exe'
+  MSBUILD_PATH: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin\amd64\msbuild.exe'
+  NUNIT_PATH: 'C:\testcentric-experimental-gui-0.7.0'
+  UNITTEST_FOLDER: '.\Guru99\Guru99\bin\Release'
+
+stages:
+  - build
+  - test
+
+build_job:
+  stage: build
+  only:
+    - branches
+  script:
+    - '& "$env:NUGET_PATH" restore .\Guru99\Guru99 -PackagesDirectory Guru99\packages'
+    - '& "$env:MSBUILD_PATH" /p:Configuration=Release /clp:ErrorsOnly .\Guru99\Guru99\Guru99.csproj -t:rebuild'
+  artifacts:
+    expire_in: 2 days
+    paths:
+      - '$env:UNITTEST_FOLDER'
+      - '.\$env:NUNIT_PATH\*.*'
+
+test_job:
+  stage: test
+  only:
+    - branches
+  before_script:
+    - echo "export CHROME_HEADLESS=false"
+  script:
+    - '& "$env:NUNIT_PATH\tc-next.exe" "$env:UNITTEST_FOLDER\Guru99.dll --run"'
+  dependencies:
+    - build_job
