@@ -27,9 +27,10 @@ test_job:
   only:
     - branches
   before_script:
-    - echo "export CHROME_HEADLESS=false"
-    - echo '$NUNIT_PATH\tc-next.exe $UNITTEST_FOLDER\Guru99.dll --run'
+    #- echo "export CHROME_HEADLESS=false"
+    #- echo '$NUNIT_PATH\tc-next.exe $UNITTEST_FOLDER\Guru99.dll --run'
   script:
-    - '"$NUNIT_PATH\tc-next.exe $UNITTEST_FOLDER\Guru99.dll --run"'
+    #- '"$NUNIT_PATH\tc-next.exe $UNITTEST_FOLDER\Guru99.dll --run"'
+    - nunit3-console.exe $UNITTEST_FOLDER\Guru99.dll
   dependencies:
     - build_job
