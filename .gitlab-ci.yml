@@ -22,15 +22,26 @@ build_job:
       - '$env:UNITTEST_FOLDER'
       - '.\$env:NUNIT_PATH\*.*'
 
-test_job:
+#test_job:
+#  stage: test
+#  only:
+#    - branches
+#  before_script:
+#    #- echo "export CHROME_HEADLESS=false"
+#    #- echo '$NUNIT_PATH\tc-next.exe $UNITTEST_FOLDER\Guru99.dll --run'
+#  script:
+#    #- '"$NUNIT_PATH\tc-next.exe $UNITTEST_FOLDER\Guru99.dll --run"'
+#    - nunit3-console.exe $UNITTEST_FOLDER\Guru99.dll
+#  dependencies:
+#    - build_job
+Test:
   stage: test
-  only:
-    - branches
-  before_script:
-    #- echo "export CHROME_HEADLESS=false"
-    #- echo '$NUNIT_PATH\tc-next.exe $UNITTEST_FOLDER\Guru99.dll --run'
-  script:
-    #- '"$NUNIT_PATH\tc-next.exe $UNITTEST_FOLDER\Guru99.dll --run"'
-    - nunit3-console.exe $UNITTEST_FOLDER\Guru99.dll
-  dependencies:
-    - build_job
+  script: 
+    - 'dotnet test --no-build -c Release -v n $UNITTEST_FOLDER\Guru99.csproj --test-adapter-path:. --logger:"junit;LogFilePath=..\artifacts\{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose"'
+  artifacts:
+    when: always
+    paths: 
+     - ./**/*test-result.xml
+    reports:
+      junit: 
+       - ./**/*test-result.xml
