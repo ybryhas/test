@@ -37,7 +37,7 @@ build_job:
 Test:
   stage: test
   script: 
-    - 'dotnet test --no-build -c Release -v n $UNITTEST_FOLDER\Guru99.csproj --test-adapter-path:. --logger:"junit;LogFilePath=..\artifacts\{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose"'
+    - 'dotnet test --no-build -c Release -v n .\Guru99\Guru99\Guru99.csproj --test-adapter-path:. --logger:"junit;LogFilePath=..\artifacts\{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose"'
   artifacts:
     when: always
     paths: 
@@ -45,3 +45,4 @@ Test:
     reports:
       junit: 
        - ./**/*test-result.xml
+```
