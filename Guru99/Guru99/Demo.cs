@@ -24,6 +24,7 @@ namespace Guru99Demo
         public void CloseBrowser()
         {
             driver.Close();
+            driver.Quit();
         }
 
     }
