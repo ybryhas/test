@@ -45,4 +45,3 @@ Test:
     reports:
       junit: 
        - ./**/*test-result.xml
-```
